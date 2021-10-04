@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 
 # Create your views here.
@@ -9,6 +9,10 @@ from django.views import View
 class Index(View):
     def get(self, req):
         return render(req, 'shop/home.html', {'numbers': [1, 2, 3, 4, 5, 6, 7, 8, 9]})
+
+
+def Profile(req, pid):
+    return render(req, 'shop/profile.html')
 
 
 def About(req):
@@ -33,7 +37,10 @@ def Item(req, id):
 
 class AddItem(View):
     def get(self, req):
-        return HttpResponse('Add Item')
+        return render(req, 'shop/additem.html')
+
+    def post(self, req):
+        return HttpResponse('posted')
 
 
 def addtobasket(req, id):
