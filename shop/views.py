@@ -29,3 +29,14 @@ def NewItems(req):
 
 def Item(req, id):
     return render(req, 'shop/item.html', {'id': id})
+
+
+class AddItem(View):
+    def get(self, req):
+        return HttpResponse('Add Item')
+
+
+def addtobasket(req, id):
+    print(id)
+
+    return HttpResponse(id)
