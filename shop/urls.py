@@ -10,6 +10,7 @@ urlpatterns = [
     path('products/trending', views.Trending, name='trending'),
     path('item/<int:id>', views.Item, name='item'),
     path('add/', views.AddItem.as_view(), name='additem'),
+    path('user/<int:pid>', views.Profile, name='user'),
 
     path('add-to-basket/<int:id>', views.addtobasket, name='basket'),
 
