@@ -1,0 +1,45 @@
+{% extends 'shop/layout.html' %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-10 col-md-6 col-lg-6  mx-auto p-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name" class=" form-label">Item Name</label>
+                    <input type="text" class="form-control" required>
+                    <p class="text-muted">item name should not be longer than 80 characters</p>
+                </div>
+                <div class="form-group">
+                    <label for="name" class=" form-label">Discription</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="name" class=" form-label">price</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="name" class=" form-label">Product image</label>
+                    <input type="file" class="form-control"  required>
+                    
+                </div>
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn-outline-success btn">List Item</button>
+                    <button class="btn-outline-danger btn m-3">Not Now</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- end document-->
+
+
+{% endblock content %}
