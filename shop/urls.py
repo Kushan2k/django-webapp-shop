@@ -9,5 +9,8 @@ urlpatterns = [
     path('products/new-posted', views.NewItems, name='new-posted'),
     path('products/trending', views.Trending, name='trending'),
     path('item/<int:id>', views.Item, name='item'),
+    path('add/', views.AddItem.as_view(), name='additem'),
+
+    path('add-to-basket/<int:id>', views.addtobasket, name='basket'),
 
 ]
