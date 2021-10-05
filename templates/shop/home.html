@@ -1,10 +1,22 @@
 {% extends 'shop/layout.html' %}
 
+{% block loginbtn %}
+
+{% if user.is_authenticated %}
+<a class="btn btn-outline-dark p-2" style="margin-right: 20px;" href="{% url 'user' 2 %}">Me</a>
+{% else %}
+<a class="btn btn-outline-dark p-2" style="margin-right: 20px;" href="{% url 'login' %}">Sign Up</a>
+
+{% endif %}
+
+{% endblock loginbtn %}
+
+
 {% block content %}
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
+            <h1 class="display-4 fw-bolder">Hello !</h1>
             <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
         </div>
     </div>

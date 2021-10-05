@@ -1,14 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 
 class Index(View):
     def get(self, req):
-        return render(req, 'shop/home.html', {'numbers': [1, 2, 3, 4, 5, 6, 7, 8, 9]})
+        context = {
+            'user': User
+        }
+        return render(req, 'shop/home.html', context)
 
 
 def Profile(req, pid):
@@ -47,3 +53,24 @@ def addtobasket(req, id):
     print(id)
 
     return HttpResponse(id)
+
+
+class Login(View):
+
+    def get(self, req):
+        form = UserCreationForm()
+        context = {
+            'form': form
+        }
+        return render(req, 'shop/login.html', context)
+
+    def post(self, req):
+        form = UserCreationForm(req.POST)
+        if (form.is_valid()):
+            user = User(
+                username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            user.save()
+            return redirect('index')
+        else:
+            form = UserCreationForm(req.POST)
+            return render(req, 'shop/login.html', {'form': form})

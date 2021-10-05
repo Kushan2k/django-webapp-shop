@@ -38,7 +38,9 @@
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <a class="btn btn-outline-dark p-2" href="{% url 'user' 2 %}">Me</a>
+                        {% block loginbtn %}
+                        
+                        {% endblock loginbtn %}
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
