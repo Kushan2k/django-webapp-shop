@@ -53,24 +53,3 @@ def addtobasket(req, id):
     print(id)
 
     return HttpResponse(id)
-
-
-class Login(View):
-
-    def get(self, req):
-        form = UserCreationForm()
-        context = {
-            'form': form
-        }
-        return render(req, 'shop/login.html', context)
-
-    def post(self, req):
-        form = UserCreationForm(req.POST)
-        if (form.is_valid()):
-            user = User(
-                username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
-            user.save()
-            return redirect('index')
-        else:
-            form = UserCreationForm(req.POST)
-            return render(req, 'shop/login.html', {'form': form})

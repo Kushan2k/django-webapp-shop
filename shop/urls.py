@@ -14,7 +14,4 @@ urlpatterns = [
 
     path('add-to-basket/<int:id>', views.addtobasket, name='basket'),
 
-
-    path('login', views.Login.as_view(), name='login'),
-
 ]

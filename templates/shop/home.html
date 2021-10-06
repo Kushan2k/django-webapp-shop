@@ -1,15 +1,6 @@
 {% extends 'shop/layout.html' %}
 
-{% block loginbtn %}
 
-{% if user.is_authenticated %}
-<a class="btn btn-outline-dark p-2" style="margin-right: 20px;" href="{% url 'user' 2 %}">Me</a>
-{% else %}
-<a class="btn btn-outline-dark p-2" style="margin-right: 20px;" href="{% url 'login' %}">Sign Up</a>
-
-{% endif %}
-
-{% endblock loginbtn %}
 
 
 {% block content %}
