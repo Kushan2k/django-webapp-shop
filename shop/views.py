@@ -1,20 +1,22 @@
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse,JsonResponse
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
+
 
 from django.contrib.auth.models import User
 
 # Create your views here.
 
+from json import dumps
+
+count=1
 
 class Index(View):
     def get(self, req):
-        context = {
-            'user': User
-        }
-        return render(req, 'shop/home.html', context)
+
+        
+        return render(req, 'shop/home.html',{'count':count})
 
 
 def Profile(req, pid):
@@ -50,6 +52,14 @@ class AddItem(View):
 
 
 def addtobasket(req, id):
-    print(id)
 
-    return HttpResponse(id)
+    count=increment(id)
+    
+    data={
+        'count':count
+    }
+    return JsonResponse(data,status=200)
+
+
+def increment(precount):
+    return precount+1

@@ -18,5 +18,6 @@ class Login(View):
         form = forms.UserRegisterForm(req.POST)
         if (form.is_valid()):
             print(form.cleaned_data)
+            form.save()
             return redirect('login')
-        
+        return redirect('login')
