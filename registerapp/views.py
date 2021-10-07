@@ -12,13 +12,11 @@ class Login(View):
         context = {
             'form': form
         }
-        return render(req, 'shop/login.html', context)
+        return render(req, 'user/register.html', context)
 
     def post(self, req):
         form = forms.UserRegisterForm(req.POST)
         if (form.is_valid()):
             print(form.cleaned_data)
-            return redirect('index')
-        else:
-            form = forms.UserRegisterForm(req.POST)
-            return render(req, 'shop/login.html', {'form': form})
+            return redirect('login')
+        

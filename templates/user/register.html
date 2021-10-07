@@ -1,0 +1,28 @@
+{% extends 'shop/layout.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-10 mx-auto col-md-6">
+            <form class="form-horizontal" method="post">{% csrf_token %}
+                <fieldset>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-actions mb-5" >
+                    <button type="submit" class="btn btn-primary" >Submit</button>
+                </div>
+            </form>
+            <div class="container">
+                <p class="text-muted">Already Have An Account:
+                <a href="{% url 'login' %}">Log In</a>    
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
