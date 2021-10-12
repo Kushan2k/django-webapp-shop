@@ -1,6 +1,6 @@
 {% extends 'shop/layout.html' %}
 
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
@@ -9,26 +9,14 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="name" class=" form-label">Item Name</label>
-                    <input type="text" class="form-control" required>
-                    <p class="text-muted">item name should not be longer than 80 characters</p>
+                    {{ itemform|crispy}}
+                    {{ imageform|crispy}}
                 </div>
-                <div class="form-group">
-                    <label for="name" class=" form-label">Discription</label>
-                    <input type="text" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="name" class=" form-label">price</label>
-                    <input type="text" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="name" class=" form-label">Product image</label>
-                    <input type="file" class="form-control"  required>
-                    
-                </div>
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn-outline-success btn">List Item</button>
-                    <button class="btn-outline-danger btn m-3">Not Now</button>
+
+
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-outline-success" name="add">List Item</button>
+                    <a href="{% url 'index' %}" class="btn btn-outline-warning" name="back">Later</a>
                 </div>
                 
             </form>

@@ -8,7 +8,7 @@ urlpatterns = [
     path('product/', views.Products, name='products'),
     path('products/new-posted', views.NewItems, name='new-posted'),
     path('products/trending', views.Trending, name='trending'),
-    path('item/<int:id>', views.Item, name='item'),
+    path('item/<int:id>', views.Items, name='item'),
     path('add/', views.AddItem.as_view(), name='additem'),
     path('user/<int:pid>', views.Profile, name='user'),
 
