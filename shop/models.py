@@ -26,4 +26,9 @@ class Images(models.Model):
     def __str__(self)->str:
         return f'{self.url}'
 
-        
+class Cart(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    item=models.ForeignKey(Item,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'({self.item.id})'     

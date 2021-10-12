@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 from .forms import AddImageForm,AddItemForm
 
-from .models import Item
+from .models import Item,Cart
 
 # Create your views here.
 
@@ -22,12 +22,17 @@ count=1
 class Index(View):
     def get(self, req):
 
+        cart=Cart.objects.filter(user_id=req.user.id)
+        print(cart)
+        cartcount=len(cart)
         items=Item.objects.all()
         ctx={
-            'count':count,
-            'items':items
+            'count':cartcount,
+            'items':items,
+
             
         }
+        
         
         
         
@@ -97,16 +102,24 @@ class AddItem(View,LoginRequiredMixin):
 
         
 
-
+@login_required
 def addtobasket(req, id):
 
-    count=increment(id)
-    
+    # print(id)
+    previtem=Item.objects.get(pk=int(id))
+    # print(previtem)
+    # print(previtem)
+    usercart=Cart.objects.get(user_id=req.user.id)
+    usercart.item=previtem
+    usercart.save()
+
+# TODO Fix adding item to cart
+    cart=Cart.objects.filter(user_id=req.user.id)
+    print(len(cart))
+    cartcount=len(cart)
     data={
-        'count':count
+        'count':cartcount
     }
     return JsonResponse(data,status=200)
 
 
-def increment(precount):
-    return precount+1

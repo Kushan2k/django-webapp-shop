@@ -42,7 +42,7 @@
                             {% if item.user == user %}
                             <a href="#" class="btn btn-outline-warning mt-2 add-to-basket" data-name='2'>Edit</a>
                             {% else %}
-                            <a href="#" class="btn btn-outline-dark mt-2 add-to-basket" data-name='2'>Add To Cart</a>
+                            <a href="#" class="btn btn-outline-dark mt-2 add-to-basket" data-name='{{item.id}}'>Add To Cart</a>
                             {% endif %}
                         
                         {% endif %}
@@ -72,10 +72,10 @@
             let btns=document.querySelectorAll('.add-to-basket')
             btns.forEach(btn=>{
                 btn.addEventListener('click',(e)=>{
-                    
+                    var itemid=e.target.dataset.name
                     try {
                         let req=new XMLHttpRequest()
-                        req.open('GET',`{% url 'basket' 2 %}`)
+                        req.open('GET',`{% url 'basket' 123 %}`.replace(123,itemid))
 
                         req.onreadystatechange=()=>{
                             // console.log(req.responseText)
