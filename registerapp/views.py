@@ -17,7 +17,7 @@ class Login(View):
     def post(self, req):
         form = forms.UserRegisterForm(req.POST)
         if (form.is_valid()):
-            print(form.cleaned_data)
             form.save()
             return redirect('login')
-        return redirect('login')
+        # return render(req,'user/register.html',{'form':form},status=302)
+        return redirect('register')

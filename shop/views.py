@@ -120,4 +120,7 @@ def addtobasket(req, id):
     }
     return JsonResponse(data,status=200)
 
-
+@login_required
+def Cart(req,uid):
+    cart=CartItem.objects.filter(user_id=uid)
+    return render(req,'shop/cart.html',{'cart':cart})

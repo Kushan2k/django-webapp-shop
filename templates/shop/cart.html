@@ -1,0 +1,14 @@
+{% extends 'shop/layout.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    {% for c in cart%}
+
+    <p>{{c.item}}</p>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

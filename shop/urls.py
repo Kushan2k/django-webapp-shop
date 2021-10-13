@@ -13,5 +13,6 @@ urlpatterns = [
     path('user/<int:pid>', views.Profile, name='user'),
 
     path('add-to-basket/<int:id>', views.addtobasket, name='basket'),
+    path('cart/<int:uid>',views.Cart,name='cart'),
 
 ]
