@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 from .forms import AddImageForm,AddItemForm
 
-from .models import Item,Cart
+from .models import Item,CartItem
 
 # Create your views here.
 
@@ -22,8 +22,8 @@ count=1
 class Index(View):
     def get(self, req):
 
-        cart=Cart.objects.filter(user_id=req.user.id)
-        print(cart)
+        cart=CartItem.objects.filter(user_id=req.user.id)
+        
         cartcount=len(cart)
         items=Item.objects.all()
         ctx={
@@ -109,12 +109,10 @@ def addtobasket(req, id):
     previtem=Item.objects.get(pk=int(id))
     # print(previtem)
     # print(previtem)
-    usercart=Cart.objects.get(user_id=req.user.id)
-    usercart.item=previtem
+    usercart=CartItem(user=req.user,item=previtem)
     usercart.save()
 
-# TODO Fix adding item to cart
-    cart=Cart.objects.filter(user_id=req.user.id)
+    cart=CartItem.objects.filter(user_id=req.user.id)
     print(len(cart))
     cartcount=len(cart)
     data={
