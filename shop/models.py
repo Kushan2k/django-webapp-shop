@@ -27,7 +27,7 @@ class Images(models.Model):
         return f'{self.url}'
 
 class CartItem(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,default=0)
     item=models.ForeignKey(Item,on_delete=models.CASCADE)
 
     def __str__(self):
