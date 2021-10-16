@@ -30,7 +30,7 @@
                             <td>In stock</td>
                             <td><input class="form-control" type="number" value="1" /></td>
                             <td class="text-right">${{item.item.price}}</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                            <td class="text-right"><a class="btn btn-sm btn-danger" href="{% url 'rm-cart' item.id %}">Remove </a> </td>
                         </tr>
 
 

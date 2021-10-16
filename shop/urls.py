@@ -14,5 +14,6 @@ urlpatterns = [
 
     path('add-to-basket/<int:id>', views.addtobasket, name='basket'),
     path('cart/<int:uid>',views.Cart,name='cart'),
+    path('remove-from-cart/<int:iID>',views.RMCart,name='rm-cart'),
 
 ]
