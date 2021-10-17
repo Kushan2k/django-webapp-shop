@@ -1,5 +1,85 @@
 {% extends 'shop/layout.html' %}
-
+{% load static %}
+{% block css %}
+<link href="{% static 'styles/item.css' %}" rel="stylesheet" />
+{% endblock css %}
 {% block content %}
-<h1>{{id}}</h1>
+
+
+
+<div class="container mt-5 mb-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-6 border-end">
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="main_image"> <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="main_product_image" width="350"> </div>
+                    <div class="thumbnail_images">
+                        <ul id="thumbnail">
+                            <li><img onclick="changeImage(this)" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" width="70"></li>
+                            <li><img onclick="changeImage(this)" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" width="70"></li>
+                            <li><img onclick="changeImage(this)" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" width="70"></li>
+                            <li><img onclick="changeImage(this)" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" width="70"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 right-side">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>{{item.name}}</h3> <span class="heart"><i class='bx bx-heart'></i></span>
+                    </div>
+                    <div class="mt-2 pr-3 content">
+                        <p>{{item.post_date}}</p>
+                    </div>
+                    <h3>${{item.price}}</h3>
+                    <div class="ratings d-flex flex-row align-items-center">
+                        <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i> </div> <span>441 reviews</span>
+                    </div>
+
+                    <div class="buttons d-flex flex-row mt-5 gap-3"> <a class="btn btn-outline-dark" href="{% url 'buy-now' item.id%}">Buy Now</a>
+                         <button class="btn btn-dark add-to-basket" data-name="{{item.id}}">Add to Basket</button> </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changeImage(element) {
+
+        var main_prodcut_image = document.getElementById('main_product_image');
+        main_prodcut_image.src = element.src;
+
+
+    }
+    document.addEventListener('DOMContentLoaded',()=>{
+            let btn=document.querySelector('.add-to-basket')
+            
+                btn.addEventListener('click',(e)=>{
+                    var itemid=e.target.dataset.name
+                    try {
+                        let req=new XMLHttpRequest()
+                        req.open('GET',`{% url 'basket' 123 %}`.replace(123,itemid))
+
+                        req.onreadystatechange=()=>{
+                            // console.log(req.responseText)
+                            if(req.readyState == 4 && req.status == 200){
+                                if(JSON.parse(req.responseText).data){
+                                    document.getElementById('count').innerHTML=JSON.parse(req.responseText).count
+                                }else{
+                                    alert('Already in the cart!')
+                                }
+                                
+                            }
+                        }
+                        req.send()
+                        
+                    } catch (error) {
+                        console.log(error)
+                    }
+                })
+            })
+</script>
+
 {% endblock content %}

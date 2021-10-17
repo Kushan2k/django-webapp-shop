@@ -31,17 +31,17 @@
                         <!-- Product name-->
                         <h5 class="fw-bolder">{{ item.name }}</h5>
                         <!-- Product price-->
-                        {{ item.price }}
+                        ${{ item.price }}
                     </div>
                 </div>
                 <!-- Product actions-->
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div class="text-center w-100 d-flex flex-column">
                         <a class="btn btn-outline-dark mt-auto" 
-                        href="{% url 'item' 20 %}">View options</a>
+                        href="{% url 'item' item.id %}">View options</a>
                         {% if user.is_authenticated %}
                             {% if item.user == user %}
-                            <a href="#" class="btn btn-outline-warning mt-2 add-to-basket" data-name='2'>Edit</a>
+                            <a href="{% url 'edit' item.id %}" class="btn btn-outline-warning mt-2 add-to-basket" data-name='2'>Edit</a>
                             {% else %}
                             <a href="#" class="btn btn-outline-dark mt-2 add-to-basket" data-name='{{item.id}}'>Add To Cart</a>
                             {% endif %}

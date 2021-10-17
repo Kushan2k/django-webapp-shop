@@ -19,6 +19,7 @@
                             <th scope="col" class="text-center">Quantity</th>
                             <th scope="col" class="text-right">Price</th>
                             <th> </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,8 +29,9 @@
                             <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
                             <td>{{item.item.name}}</td>
                             <td>In stock</td>
-                            <td><input class="form-control" type="number" value="1" /></td>
+                            <td>1</td>
                             <td class="text-right">${{item.item.price}}</td>
+                            <td class="text-right"><a class="btn btn-sm btn-success" href="{% url 'buy-now' item.id %}">Buy Now </a> </td>
                             <td class="text-right"><a class="btn btn-sm btn-danger" href="{% url 'rm-cart' item.id %}">Remove </a> </td>
                         </tr>
 

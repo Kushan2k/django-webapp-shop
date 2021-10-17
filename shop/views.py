@@ -1,6 +1,8 @@
 from django.core.checks import messages
 from django.shortcuts import render, redirect
 
+from django.urls import reverse
+
 from django.http import HttpResponse,JsonResponse, request
 from django.views import View
 
@@ -60,11 +62,22 @@ def Products(req):
 
 
 def NewItems(req):
-    return render(req, 'shop/newitems.html')
+    newitems=Item.objects.all()
+    data={
+        'items':newitems
+    }
+    return render(req, 'shop/newitems.html',data)
 
 
 def Items(req, id):
-    return render(req, 'shop/item.html', {'id': id})
+    item=Item.objects.get(pk=id)
+    cart=CartItem.objects.filter(user=req.user)
+    count=len(cart)
+    data={
+        'item':item,
+        'count':count
+    }
+    return render(req, 'shop/item.html', data)
 
 
 class AddItem(View,LoginRequiredMixin):
@@ -122,6 +135,7 @@ def addtobasket(req, id):
         cart=CartItem.objects.filter(user_id=req.user.id)
         cartcount=len(cart)
         data={
+            'data':True,
             'count':cartcount
         }
         print('created')
@@ -132,8 +146,10 @@ def Cart(req,uid):
     if req.user.id != uid:
         return redirect('index')
     cart=CartItem.objects.filter(user_id=uid)
+    cart=CartItem.objects.filter(user_id=req.user.id)
+    cartcount=len(cart)
     
-    return render(req,'shop/cart.html',{'cart':cart})
+    return render(req,'shop/cart.html',{'cart':cart,'count':cartcount})
 
 
 @login_required
@@ -141,7 +157,60 @@ def Cart(req,uid):
 def RMCart(req,iID):
 
     item=CartItem.objects.get(pk=iID,user_id=req.user.id)
-    # item.delete()
-    print(item)
+    item.delete()
+    # print(item)
 
     return redirect('index')
+
+@login_required
+def BuyNow(req,id):
+
+    try:
+        item=CartItem.objects.get(pk=id)
+    except Exception as e:
+        return redirect('index')
+    cart=CartItem.objects.filter(user=req.user)
+    count=len(cart)
+
+
+    return render(req,'shop/payment.html',{'item':item.item,'count':count})
+
+
+class EditItem(LoginRequiredMixin,View):
+    
+
+    def get(self,req,id):
+        cart=CartItem.objects.filter(user=req.user)
+        count=len(cart)
+        try:
+            item=Item.objects.get(pk=id)
+        except Exception as e:
+            return redirect('index')
+
+        if not item.user== req.user:
+            return redirect('index')
+
+        editform=AddItemForm(instance=item)
+
+        data={
+            'form':editform,
+            'count':count
+        }
+
+        return render(req,'shop/edit.html',data)
+    
+    def post(self,req,id):
+        item=Item.objects.get(pk=id)
+        cart=CartItem.objects.filter(user=req.user)
+        count=len(cart)
+        
+
+        form=AddItemForm(req.POST)
+        if form.is_valid() and not form.cleaned_data['price']==0:
+            item.name=form.cleaned_data['name']
+            item.price=form.cleaned_data['price']
+            item.save()
+
+            return redirect('index')
+        else:
+            return render(req,'shop/edit.html',{'form':form,'count':count})
