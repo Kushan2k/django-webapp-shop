@@ -36,8 +36,12 @@
                         <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i> </div> <span>441 reviews</span>
                     </div>
 
-                    <div class="buttons d-flex flex-row mt-5 gap-3"> <a class="btn btn-outline-dark" href="{% url 'buy-now' item.id%}">Buy Now</a>
-                         <button class="btn btn-dark add-to-basket" data-name="{{item.id}}">Add to Basket</button> </div>
+                    {% if item.user != user %}
+
+                        <div class="buttons d-flex flex-row mt-5 gap-3"> <a class="btn btn-outline-dark text-center" href="{% url 'buy-now' item.id%}">Buy Now</a>
+                            <button class="btn btn-dark add-to-basket" data-name="{{item.id}}">Add to Basket</button> 
+                        </div>
+                    {% endif %}
                     
                 </div>
             </div>

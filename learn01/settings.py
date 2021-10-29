@@ -137,9 +137,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL='index'
-LOGOUT_REDIRECT_URL='index'
-LOGIN_URL='login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
 
 # MEDIA_URL=BASE_DIR/'media'
-MEDIA_ROOT='media'
+MEDIA_ROOT = 'media'
+MEDIA_URL = 'media/item_images/'
